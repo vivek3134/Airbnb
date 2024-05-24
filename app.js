@@ -21,6 +21,9 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 const dbUrl = process.env.ATLASDB_URL;
+//process.env.ATLASDB_URL;
+//"mongodb://127.0.0.1:27017/wanderlust"
+
 main()
   .then(() => {
     console.log("Connected to DB");
@@ -64,11 +67,6 @@ const sessionOption = {
   },
 };
 
-//root route
-// app.get("/", (req, res) => {
-//   res.send("Hii i am root");
-// });
-
 app.use(session(sessionOption));
 app.use(flash());
 
@@ -80,25 +78,11 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-  res.locals.currUser = req.user || null; // Assuming req.user contains the current user
-  next();
-});
-
-app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currUser = req.user;
+  res.locals.currUser = req.user || null;
   next();
 });
-
-// app.get("/demouser", async (req, res) => {
-//   let fakeUser = new User({
-//     email: "student@gmail.com",
-//     username: "delta-student",
-//   });
-//   let registeredUser = await User.register(fakeUser, "password");
-//   res.send(registeredUser);
-// });
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
@@ -116,5 +100,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(8080, () => {
-  console.log(`app is lisning on port `);
+  console.log(`app is lisning on port 8080`);
 });
