@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
-const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
-const { isLoggedIn, validateListing } = require("../middleware.js");
+const { isLoggedIn, validateListing, isOwner } = require("../middleware.js");
 const listingController = require("../controllers/listing.js");
 const multer = require("multer");
 const { storage } = require("../cloudeConfig.js");
@@ -29,6 +28,7 @@ router
   //update route
   .put(
     isLoggedIn,
+    isOwner,
     upload.single("listing[image]"),
     validateListing,
     wrapAsync(listingController.updateListing)
@@ -36,12 +36,13 @@ router
   //show route
   .get(wrapAsync(listingController.showListing))
   //delete route
-  .delete(isLoggedIn, wrapAsync(listingController.destroyListing));
+  .delete(isLoggedIn,isOwner, wrapAsync(listingController.destroyListing));
 
 //edit route
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isOwner,
   wrapAsync(listingController.renderEditForm)
 );
 

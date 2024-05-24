@@ -21,8 +21,6 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 const dbUrl = process.env.ATLASDB_URL;
-//process.env.ATLASDB_URL;
-//"mongodb://127.0.0.1:27017/wanderlust"
 
 main()
   .then(() => {
@@ -31,7 +29,6 @@ main()
   .catch((err) => {
     console.log(err);
   });
-//data-base connection
 async function main() {
   await mongoose.connect(dbUrl);
 }
@@ -80,7 +77,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currUser = req.user || null;
+  res.locals.currUser = req.user;
   next();
 });
 
@@ -96,7 +93,6 @@ app.all("*", (req, res, next) => {
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "something went wrong" } = err;
   res.status(statusCode).render("error.ejs", { message });
-  // res.status(statusCode).send(message);
 });
 
 app.listen(8080, () => {
