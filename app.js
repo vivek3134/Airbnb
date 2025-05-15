@@ -21,6 +21,9 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 const dbUrl = process.env.ATLASDB_URL;
+
+// const dbUrl = "mongodb://127.0.0.1:27017/wanderlust"
+
 main()
   .then(() => {
     console.log("Connected to DB");
@@ -83,7 +86,7 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
-  next();
+  next(); 
 });
 
 // app.get("/demouser", async (req, res) => {
