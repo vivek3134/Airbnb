@@ -2,8 +2,8 @@
   .search-btn {
     background-color: #fe424d;
     color: #fff;
-    border-radius:25px;
-    padding:0 1rem 0 1rem;
+    border-radius: 25px;
+    padding: 0 1rem;
   }
   .search-btn:hover {
     background-color: #fe424d;
@@ -13,18 +13,18 @@
     display: inline;
     margin-right: 0.5rem;
   }
-  .search-inp{
-    border-radius:25px;
-    padding:0.5rem 3rem 0.5rem 3rem;
-    font-size:1rem;
+  .search-inp {
+    border-radius: 25px;
+    padding: 0.5rem 3rem;
+    font-size: 1rem;
   }
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"
-      ><i class="fa-regular fa-compass"></i
-    ></a>
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+    </a>
     <button
       class="navbar-toggler"
       type="button"
@@ -33,6 +33,7 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="/listings">Explore</a>
@@ -52,18 +53,12 @@
       </div>
 
       <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/new">Airbnb your home</a>
-
-<<<<<<< HEAD
-        <% if(typeof currUser === "undefined" || !currUser){%>
-=======
-      <% if (typeof currUser === "undefined" || !currUser) { %>
->>>>>>> 9293e11 (main)
-        <a class="nav-link" href="/signup"><b>Sign up</b> </a>
-        <a class="nav-link" href="/login"><b>Log in</b></a>
-        <%}%> <% if(currUser){%>
-        <a class="nav-link" href="/logout"><b>Log out</b></a>
-        <%}%>
+        <% if (!currUser) { %>
+          <a class="nav-link" href="/signup"><b>Sign up</b></a>
+          <a class="nav-link" href="/login"><b>Log in</b></a>
+        <% } else { %>
+          <a class="nav-link" href="/logout"><b>Log out</b></a>
+        <% } %>
       </div>
     </div>
   </div>
