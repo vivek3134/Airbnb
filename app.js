@@ -19,6 +19,7 @@ const User = require("./models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const { CLIENT_RENEG_LIMIT } = require("tls");
 
 const dbUrl = process.env.ATLASDB_URL;
 
@@ -85,10 +86,12 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currUser = req.user || req.session.user || null;
+  res.locals.currUser = req.user;
+  // console.log(req.user);    
   next(); 
 });
 
+  console.log("hello"); 
 // app.get("/demouser", async (req, res) => {
 //   let fakeUser = new User({
 //     email: "student@gmail.com",
